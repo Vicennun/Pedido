@@ -39,3 +39,5 @@ public class Pedido {
     @Column(nullable=false)  // Esta columna no puede ser nula.
     private String fechaEntrega;
 }
+
+

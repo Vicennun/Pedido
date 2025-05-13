@@ -1,4 +1,4 @@
-package ECOMARKET.Pedido;
+package com.ECOMARKET.Pedido;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 
 @Entity  // Marca esta clase como una entidad JPA.
 @Table(name= "pedido")  // Especifica el nombre de la tabla en la base de datos.

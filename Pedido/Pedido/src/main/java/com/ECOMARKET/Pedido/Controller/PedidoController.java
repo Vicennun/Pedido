@@ -22,17 +22,16 @@ public class PedidoController {
         List<Pedido> pedidos  = pedidoService.findAll();
         if (pedidos.isEmpty()) {
             return ResponseEntity.noContent().build();
-            //alternativa 2 -> return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        
         }
         return ResponseEntity.ok(pedidos);
-        //alternativa 2 -> return new ResponseEntity<>(pedidos, HttpStatus.OK);
+        
     }
 
     @PostMapping
     public ResponseEntity<Pedido> guardar(@RequestBody Pedido pedido) {
         Pedido pedidoNuevo = pedidoService.save(pedido);
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoNuevo);
-    //    return new ResponseEntity<>(pedidoNuevo, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}")

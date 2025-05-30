@@ -31,7 +31,7 @@ public class Pedido {
     private String metodopago;
 
     @Column(nullable=false)  // Esta columna puede ser nula.
-    private Date total;
+    private double total;
 
     @Column(nullable=false)  // Esta columna no puede ser nula.
     private String estado;
@@ -43,97 +43,115 @@ public class Pedido {
     private String fechaEntrega;
 }
 
-/*
-[
+/*  [
   {
-    "nombre": "Manzana Roja",
-    "marca": "EcoFrut",
-    "descripcion": "Manzanas rojas orgánicas, frescas y crujientes.",
-    "categoria": "Frutas",
-    "precio": 1.20,
-    "stock": 150,
-    "imagenUrl": "https://ejemplo.com/img/manzana-roja.jpg"
+    "id": 1,
+    "clienteId": 12345,
+    "nombreCliente": "Juan Pérez",
+    "direccionEnvio": "Calle Falsa 123, Ciudad",
+    "metodopago": "Tarjeta de Crédito",
+    "total": 194400,
+    "estado": "Pendiente",
+    "fechaPedido": "2025-05-29",
+    "fechaEntrega": "2025-06-01"
   },
   {
-    "nombre": "Leche Descremada",
-    "marca": "Lechera Verde",
-    "descripcion": "Leche descremada de vaca, sin conservantes.",
-    "categoria": "Lácteos",
-    "precio": 0.95,
-    "stock": 80,
-    "imagenUrl": "https://ejemplo.com/img/leche-descremada.jpg"
+    "id": 2,
+    "clienteId": 67890,
+    "nombreCliente": "María López",
+    "direccionEnvio": "Avenida Siempre Viva 742, Ciudad",
+    "metodopago": "PayPal",
+    "total": 50000,
+    "estado": "Enviado",
+    "fechaPedido": "2025-05-28",
+    "fechaEntrega": "2025-06-02"
   },
   {
-    "nombre": "Pan Integral",
-    "marca": "Panadería Saludable",
-    "descripcion": "Pan integral artesanal, rico en fibra.",
-    "categoria": "Panadería",
-    "precio": 2.50,
-    "stock": 60,
-    "imagenUrl": "https://ejemplo.com/img/pan-integral.jpg"
+    "id": 3,
+    "clienteId": 11223,
+    "nombreCliente": "Carlos García",
+    "direccionEnvio": "Calle Luna 456, Ciudad",
+    "metodopago": "Efectivo",
+    "total": 750000,
+    "estado": "Entregado",
+    "fechaPedido": "2025-05-27",
+    "fechaEntrega": "2025-05-30"
   },
   {
-    "nombre": "Aceite de Oliva Extra Virgen",
-    "marca": "Olivar del Sur",
-    "descripcion": "Aceite de oliva extra virgen, prensado en frío.",
-    "categoria": "Aceites",
-    "precio": 5.75,
-    "stock": 40,
-    "imagenUrl": "https://ejemplo.com/img/aceite-oliva.jpg"
+    "id": 4,
+    "clienteId": 44556,
+    "nombreCliente": "Ana Torres",
+    "direccionEnvio": "Calle Sol 789, Ciudad",
+    "metodopago": "Transferencia Bancaria",
+    "total": 300000,
+    "estado": "Cancelado",
+    "fechaPedido": "2025-05-26",
+    "fechaEntrega": "2025-06-03"
   },
   {
-    "nombre": "Arroz Integral",
-    "marca": "Grano Natural",
-    "descripcion": "Arroz integral de grano largo, 100% natural.",
-    "categoria": "Cereales",
-    "precio": 1.80,
-    "stock": 120,
-    "imagenUrl": "https://ejemplo.com/img/arroz-integral.jpg"
+    "id": 5,
+    "clienteId": 77889,
+    "nombreCliente": "Luis Martínez",
+    "direccionEnvio": "Calle Estrella 321, Ciudad",
+    "metodopago": "Tarjeta de Débito",
+    "total": 1000000,
+    "estado": "Pendiente",
+    "fechaPedido": "2025-05-25",
+    "fechaEntrega": "2025-06-04"
   },
   {
-    "nombre": "Yogur Natural",
-    "marca": "Lácteos Andes",
-    "descripcion": "Yogur natural sin azúcar añadido.",
-    "categoria": "Lácteos",
-    "precio": 1.10,
-    "stock": 90,
-    "imagenUrl": "https://ejemplo.com/img/yogur-natural.jpg"
+    "id": 6,
+    "clienteId": 99001,
+    "nombreCliente": "Sofía Ramírez",
+    "direccionEnvio": "Calle Cometa 654, Ciudad",
+    "metodopago": "Tarjeta de Crédito",
+    "total": 450000,
+    "estado": "Enviado",
+    "fechaPedido": "2025-05-24",
+    "fechaEntrega": "2025-06-05"
   },
   {
-    "nombre": "Zanahoria",
-    "marca": "EcoHuerta",
-    "descripcion": "Zanahorias frescas y orgánicas.",
-    "categoria": "Verduras",
-    "precio": 0.60,
-    "stock": 200,
-    "imagenUrl": "https://ejemplo.com/img/zanahoria.jpg"
+    "id": 7,
+    "clienteId": 22334,
+    "nombreCliente": "Pedro Sánchez",
+    "direccionEnvio": "Calle Viento 987, Ciudad",
+    "metodopago": "PayPal",
+    "total": 120000,
+    "estado": "Entregado",
+    "fechaPedido": "2025-05-23",
+    "fechaEntrega": "2025-05-29"
   },
   {
-    "nombre": "Jabón Ecológico",
-    "marca": "BioClean",
-    "descripcion": "Jabón ecológico para manos y cuerpo.",
-    "categoria": "Higiene",
-    "precio": 3.20,
-    "stock": 50,
-    "imagenUrl": "https://ejemplo.com/img/jabon-ecologico.jpg"
+    "id": 8,
+    "clienteId": 55667,
+    "nombreCliente": "Laura Fernández",
+    "direccionEnvio": "Calle Mar 123, Ciudad",
+    "metodopago": "Efectivo",
+    "total": 800000,
+    "estado": "Cancelado",
+    "fechaPedido": "2025-05-22",
+    "fechaEntrega": "2025-06-06"
   },
   {
-    "nombre": "Café Orgánico Molido",
-    "marca": "Café Sierra",
-    "descripcion": "Café orgánico molido, aroma intenso.",
-    "categoria": "Bebidas",
-    "precio": 4.90,
-    "stock": 70,
-    "imagenUrl": "https://ejemplo.com/img/cafe-organico.jpg"
+    "id": 9,
+    "clienteId": 88990,
+    "nombreCliente": "Diego Herrera",
+    "direccionEnvio": "Calle Río 456, Ciudad",
+    "metodopago": "Transferencia Bancaria",
+    "total": 600000,
+    "estado": "Pendiente",
+    "fechaPedido": "2025-05-21",
+    "fechaEntrega": "2025-06-07"
   },
   {
-    "nombre": "Galletas Integrales",
-    "marca": "Dulce Vida",
-    "descripcion": "Galletas integrales con semillas de chía.",
-    "categoria": "Snacks",
-    "precio": 2.30,
-    "stock": 110,
-    "imagenUrl": "https://ejemplo.com/img/galletas-integrales.jpg"
+    "id": 10,
+    "clienteId": 11234,
+    "nombreCliente": "Elena Gómez",
+    "direccionEnvio": "Calle Montaña 789, Ciudad",
+    "metodopago": "Tarjeta de Débito",0
+    "total": 250000,
+    "estado": "Enviado",
+    "fechaPedido": "2025-05-20",
+    "fechaEntrega": "2025-06-08"
   }
-]
-*/
+] */

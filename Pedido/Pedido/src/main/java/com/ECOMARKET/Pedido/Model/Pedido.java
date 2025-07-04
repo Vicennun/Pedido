@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity  // Marca esta clase como una entidad JPA.
@@ -40,6 +43,9 @@ public class Pedido {
 
     @Column(nullable=false)  // Esta columna no puede ser nula.
     private String fechaEntrega;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetallePedido> detalles;
 }
 
 /*  [

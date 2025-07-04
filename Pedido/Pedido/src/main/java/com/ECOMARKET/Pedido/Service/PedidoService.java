@@ -14,29 +14,30 @@ import java.util.List;
 public class PedidoService {
 
     @Autowired
-    private PedidoRepository PedidoRepository;
+    private PedidoRepository pedidoRepository;
 
     public List<Pedido> findAll() {
-        return PedidoRepository.findAll();
+        return pedidoRepository.findAll();
     }
 
-    public Pedido findById(long id) {
-        return PedidoRepository.findById(id).get();
+    public Pedido findById(Integer id) {
+        return pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado con id: " + id));
     }
 
     public Pedido save(Pedido pedido) {
-        return PedidoRepository.save(pedido);
+        return pedidoRepository.save(pedido);
     }
 
-    public void delete(Long id) {
-        PedidoRepository.deleteById(id);
+    public void delete(Integer id) {
+        pedidoRepository.deleteById(id);
     }
 
     public List<Pedido> findByClienteId(Long clienteId) {
-        return PedidoRepository.findByClienteId(clienteId);
+        return pedidoRepository.findByClienteId(clienteId);
     }
 
     public List<Pedido> findByEstado(String estado) {
-        return PedidoRepository.findByEstado(estado);
+        return pedidoRepository.findByEstado(estado);
     }       
 }

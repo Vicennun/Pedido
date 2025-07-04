@@ -39,5 +39,37 @@ public class PedidoService {
 
     public List<Pedido> findByEstado(String estado) {
         return pedidoRepository.findByEstado(estado);
-    }       
+    }
+
+    public List<Pedido> findByFechaPedido(String fechaPedido) {
+        return pedidoRepository.findByFechaPedido(fechaPedido);
+    }
+
+    public List<Pedido> findByFechaPedidoBetween(String inicio, String fin) {
+        return pedidoRepository.findByFechaPedidoBetween(inicio, fin);
+    }
+
+    public long countByClienteId(Long clienteId) {
+        return pedidoRepository.countByClienteId(clienteId);
+    }
+
+    public List<Pedido> findByClienteIdAndFechaPedido(Long clienteId, String fechaPedido) {
+        return pedidoRepository.findByClienteIdAndFechaPedido(clienteId, fechaPedido);
+    }
+
+    public List<Pedido> findByEstadoAndClienteId(String estado, Long clienteId) {
+        return pedidoRepository.findByEstadoAndClienteId(estado, clienteId);
+    }
+
+    public List<Pedido> findByClienteIdAndFechaPedidoBetween(Long clienteId, String inicio, String fin) {
+        return pedidoRepository.findByClienteIdAndFechaPedidoBetween(clienteId, inicio, fin);
+    }
+
+    public List<Pedido> findByEstadoAndFechaPedidoBetween(String estado, String inicio, String fin) {
+        return pedidoRepository.findByEstadoAndFechaPedidoBetween(estado, inicio, fin);
+    }
+
+    public long countByEstado(String estado) {
+        return pedidoRepository.countByEstado(estado);
+    }
 }

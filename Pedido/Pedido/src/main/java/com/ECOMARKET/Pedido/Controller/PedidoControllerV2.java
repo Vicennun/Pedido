@@ -90,4 +90,118 @@ public class PedidoControllerV2 {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/cliente/{clienteId}")
+    @Operation(summary = "Listar pedidos por cliente", description = "Obtiene todos los pedidos realizados por un cliente específico")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByCliente(@PathVariable Long clienteId) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByClienteId(clienteId)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByCliente(clienteId)).withSelfRel());
+    }
+
+    @GetMapping("/fecha/{fechaPedido}")
+    @Operation(summary = "Listar pedidos por fecha", description = "Obtiene todos los pedidos realizados en una fecha específica")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByFecha(@PathVariable String fechaPedido) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByFechaPedido(fechaPedido)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByFecha(fechaPedido)).withSelfRel());
+    }
+
+    @GetMapping("/estado/{estado}")
+    @Operation(summary = "Listar pedidos por estado", description = "Obtiene todos los pedidos con un estado específico")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByEstado(@PathVariable String estado) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByEstado(estado)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByEstado(estado)).withSelfRel());
+    }
+
+    @GetMapping("/rango-fechas")
+    @Operation(summary = "Listar pedidos por rango de fechas", description = "Obtiene todos los pedidos realizados entre dos fechas")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByRangoFechas(
+            @RequestParam String inicio,
+            @RequestParam String fin) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByFechaPedidoBetween(inicio, fin)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByRangoFechas(inicio, fin)).withSelfRel());
+    }
+
+    @GetMapping("/cliente/{clienteId}/total")
+    @Operation(summary = "Obtener total de pedidos por cliente", description = "Cuenta el número total de pedidos realizados por un cliente específico")
+    public ResponseEntity<Long> getTotalPedidosByCliente(@PathVariable Long clienteId) {
+        long total = pedidoService.countByClienteId(clienteId);
+        return ResponseEntity.ok(total);
+    }
+
+    @GetMapping("/cliente/{clienteId}/fecha/{fechaPedido}")
+    @Operation(summary = "Listar pedidos por cliente y fecha", description = "Obtiene todos los pedidos realizados por un cliente en una fecha específica")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByClienteAndFecha(
+            @PathVariable Long clienteId,
+            @PathVariable String fechaPedido) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByClienteIdAndFechaPedido(clienteId, fechaPedido)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByClienteAndFecha(clienteId, fechaPedido)).withSelfRel());
+    }
+
+    @GetMapping("/estado/{estado}/cliente/{clienteId}")
+    @Operation(summary = "Listar pedidos por estado y cliente", description = "Obtiene todos los pedidos con un estado específico realizados por un cliente")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByEstadoAndCliente(
+            @PathVariable String estado,
+            @PathVariable Long clienteId) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByEstadoAndClienteId(estado, clienteId)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByEstadoAndCliente(estado, clienteId)).withSelfRel());
+    }
+
+    @GetMapping("/cliente/{clienteId}/rango-fechas")
+    @Operation(summary = "Listar pedidos por cliente y rango de fechas", description = "Obtiene todos los pedidos realizados por un cliente entre dos fechas")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByClienteAndRangoFechas(
+            @PathVariable Long clienteId,
+            @RequestParam String inicio,
+            @RequestParam String fin) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByClienteIdAndFechaPedidoBetween(clienteId, inicio, fin)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByClienteAndRangoFechas(clienteId, inicio, fin)).withSelfRel());
+    }
+
+    @GetMapping("/estado/{estado}/rango-fechas")
+    @Operation(summary = "Listar pedidos por estado y rango de fechas", description = "Obtiene todos los pedidos con un estado específico entre dos fechas")
+    public CollectionModel<EntityModel<Pedido>> getPedidosByEstadoAndRangoFechas(
+            @PathVariable String estado,
+            @RequestParam String inicio,
+            @RequestParam String fin) {
+        List<EntityModel<Pedido>> pedidos = pedidoService.findByEstadoAndFechaPedidoBetween(estado, inicio, fin)
+            .stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return CollectionModel.of(pedidos,
+            linkTo(methodOn(PedidoControllerV2.class).getPedidosByEstadoAndRangoFechas(estado, inicio, fin)).withSelfRel());
+    }
+
+    @GetMapping("/estado/{estado}/total")
+    @Operation(summary = "Obtener total de pedidos por estado", description = "Cuenta el número total de pedidos con un estado específico")
+    public ResponseEntity<Long> getTotalPedidosByEstado(@PathVariable String estado) {
+        long total = pedidoService.countByEstado(estado);
+        return ResponseEntity.ok(total);
+    }
 }

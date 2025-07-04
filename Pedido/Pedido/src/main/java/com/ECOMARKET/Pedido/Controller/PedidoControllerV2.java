@@ -32,7 +32,7 @@ public class PedidoControllerV2 {
     @Autowired
     private PedidoModelAssembler assembler;
 
-    @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
+    @GetMapping(produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar todos los pedidos",
         description = "Obtiene una lista de todos los pedidos realizados",
@@ -56,7 +56,7 @@ public class PedidoControllerV2 {
                 linkTo(methodOn(PedidoControllerV2.class).getAllPedidos()).withSelfRel());
     }
 
-    @GetMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Obtener pedido por ID",
         description = "Muestra los detalles de un pedido específico",
@@ -80,7 +80,7 @@ public class PedidoControllerV2 {
         return assembler.toModel(pedido);
     }
 
-    @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
+    @PostMapping(produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Crear un nuevo pedido",
         description = "Guarda un nuevo pedido con sus detalles",
@@ -113,7 +113,7 @@ public class PedidoControllerV2 {
                 .body(assembler.toModel(newPedido));
     }
 
-    @PutMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Actualizar pedido",
         description = "Actualiza los detalles de un pedido existente",
@@ -147,7 +147,7 @@ public class PedidoControllerV2 {
                 .body(assembler.toModel(updatedPedido));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Eliminar pedido",
         description = "Elimina un pedido existente por su ID",
@@ -171,7 +171,7 @@ public class PedidoControllerV2 {
         }
     }
 
-    @GetMapping("/cliente/{clienteId}")
+    @GetMapping(value = "/cliente/{clienteId}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por cliente",
         description = "Obtiene todos los pedidos realizados por un cliente específico",
@@ -195,7 +195,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByCliente(clienteId)).withSelfRel());
     }
 
-    @GetMapping("/fecha/{fechaPedido}")
+    @GetMapping(value = "/fecha/{fechaPedido}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por fecha",
         description = "Obtiene todos los pedidos realizados en una fecha específica",
@@ -219,7 +219,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByFecha(fechaPedido)).withSelfRel());
     }
 
-    @GetMapping("/estado/{estado}")
+    @GetMapping(value = "/estado/{estado}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por estado",
         description = "Obtiene todos los pedidos con un estado específico",
@@ -243,7 +243,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByEstado(estado)).withSelfRel());
     }
 
-    @GetMapping("/rango-fechas")
+    @GetMapping(value = "/rango-fechas", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por rango de fechas",
         description = "Obtiene todos los pedidos realizados entre dos fechas",
@@ -269,7 +269,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByRangoFechas(inicio, fin)).withSelfRel());
     }
 
-    @GetMapping("/cliente/{clienteId}/total")
+    @GetMapping(value = "/cliente/{clienteId}/total", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Obtener total de pedidos por cliente",
         description = "Cuenta el número total de pedidos realizados por un cliente específico",
@@ -289,7 +289,7 @@ public class PedidoControllerV2 {
         return ResponseEntity.ok(total);
     }
 
-    @GetMapping("/cliente/{clienteId}/fecha/{fechaPedido}")
+    @GetMapping(value = "/cliente/{clienteId}/fecha/{fechaPedido}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por cliente y fecha",
         description = "Obtiene todos los pedidos realizados por un cliente en una fecha específica",
@@ -315,7 +315,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByClienteAndFecha(clienteId, fechaPedido)).withSelfRel());
     }
 
-    @GetMapping("/estado/{estado}/cliente/{clienteId}")
+    @GetMapping(value = "/estado/{estado}/cliente/{clienteId}", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por estado y cliente",
         description = "Obtiene todos los pedidos con un estado específico realizados por un cliente",
@@ -341,7 +341,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByEstadoAndCliente(estado, clienteId)).withSelfRel());
     }
 
-    @GetMapping("/cliente/{clienteId}/rango-fechas")
+    @GetMapping(value = "/cliente/{clienteId}/rango-fechas", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por cliente y rango de fechas",
         description = "Obtiene todos los pedidos realizados por un cliente entre dos fechas",
@@ -368,7 +368,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByClienteAndRangoFechas(clienteId, inicio, fin)).withSelfRel());
     }
 
-    @GetMapping("/estado/{estado}/rango-fechas")
+    @GetMapping(value = "/estado/{estado}/rango-fechas", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Listar pedidos por estado y rango de fechas",
         description = "Obtiene todos los pedidos con un estado específico entre dos fechas",
@@ -395,7 +395,7 @@ public class PedidoControllerV2 {
             linkTo(methodOn(PedidoControllerV2.class).getPedidosByEstadoAndRangoFechas(estado, inicio, fin)).withSelfRel());
     }
 
-    @GetMapping("/estado/{estado}/total")
+    @GetMapping(value = "/estado/{estado}/total", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE })
     @Operation(
         summary = "Obtener total de pedidos por estado",
         description = "Cuenta el número total de pedidos con un estado específico",
